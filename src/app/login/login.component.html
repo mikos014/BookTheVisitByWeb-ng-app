@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments.html :: headerfiles">
+  <title>Log in</title>
+</head>
+<body>
+<div class="container">
+  <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-user"></i> Zaloguj się
+      </div>
+      <div class="card-block" style="padding: 24px;">
+        <form name="f" th:action="@{/signin}" method="post">
+          <fieldset>
+            <!-- Thymeleaf + Spring Security error display -->
+            <div th:if="${param.error}" class="alert alert-danger">
+              Niepoprawny e-mail lub hasło
+            </div>
+
+            <div th:if="${param.logout}" class="alert alert-success">
+              Jesteś wylogowany.
+            </div>
+
+            <!-- Login Controls -->
+            <div class="form-group">
+              <label for="txtUsername">E-mail</label>
+              <input type="text" class="form-control" id="txtUsername" name="txtUsername"
+                     placeholder="jan.kowalski@poczta.pl">
+            </div>
+
+            <div class="form-group">
+              <label for="txtPassword">Hasło</label>
+              <input type="password" class="form-control" id="txtPassword" name="txtPassword"
+                     placeholder="*****">
+            </div>
+
+            <!-- Login Button -->
+            <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
+              <button type="submit" class="btn btn-success" style="margin-right: 12px;">Zaloguj</button>
+              <button type="submit" class="btn btn-primary">Zaloguj przez konto Google</button>
+            </div>
+
+            <div id="text" onClick="function()">
+              Nie masz konta? Zarejestruj się
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

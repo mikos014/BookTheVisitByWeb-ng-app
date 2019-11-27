@@ -1,0 +1,64 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments.html :: headerfiles">
+  <title>Log in</title>
+</head>
+<body>
+<div class="container">
+  <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-user"></i> Zarejestruj się
+      </div>
+      <div class="card-block" style="padding: 24px;">
+        <form name="f" th:action="@{/signin}" method="post">
+          <fieldset>
+            <!-- Thymeleaf + Spring Security error display -->
+            <div th:if="${param.error}" class="alert alert-danger">
+              Podany e-mail już istnieje
+            </div>
+
+            <!-- Registration Controls -->
+            <div class="form-group">
+              <label for="txtUsername">E-mail</label>
+              <input type="text" class="form-control" id="txtUsername" name="txtUsername"
+                     placeholder="jan.kowalski@poczta.pl">
+            </div>
+
+            <div class="form-group">
+              <label for="txtName">Imię</label>
+              <input type="text" class="form-control" id="txtName" name="txtName"
+                     placeholder="Jan">
+            </div>
+
+            <div class="form-group">
+              <label for="txtSurname">Nazwisko</label>
+              <input type="text" class="form-control" id="txtSurname" name="txtSurname"
+                     placeholder="Kowalski">
+            </div>
+
+            <div class="form-group">
+              <label for="txtPassword">Hasło</label>
+              <input type="password" class="form-control" id="txtPassword" name="txtPassword"
+                     placeholder="*****">
+            </div>
+
+            <div class="form-group">
+              <label for="txtPassword2">Potwierdź hasło</label>
+              <input type="password" class="form-control" id="txtPassword2" name="txtPassword2"
+                     placeholder="*****">
+            </div>
+
+            <!-- Register Button -->
+            <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
+              <button type="submit" class="btn btn-success" style="margin-right: 12px;">Zarejestruj</button>
+              <button type="submit" class="btn btn-danger">Anuluj</button>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
