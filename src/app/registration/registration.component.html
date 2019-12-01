@@ -13,22 +13,43 @@
       <div class="card-block" style="padding: 24px;">
         <form #f="ngForm" >
           <!-- Spring Security error display -->
-          <div *ngIf="showError" class="alert alert-danger">
-            Wpisany e-mail już istnieje. Wpisz unikatowy.
-          </div>
-          <div *ngIf="showLogout" class="alert alert-info">
-            Wylogowano poprawnie
+          <div *ngIf="showEmailError" class="alert alert-danger">
+          Wpisany e-mail już istnieje. Wpisz unikatowy.
+        </div>
+
+          <div *ngIf="showPasswordError" class="alert alert-danger">
+            Hasła są różne.
           </div>
 
-          <!-- Login Controls -->
+          <!-- Register Controls -->
           <div class="form-group">
             <label for="username">E-mail</label>
             <input type="text"
+                 class="form-control"
+                 id="username"
+                 name="username"
+                 placeholder="jan.kowalski@poczta.pl"
+                 [(ngModel)]="model.username">
+          </div>
+
+          <div class="form-group">
+            <label for="name">Imię</label>
+            <input type="text"
                    class="form-control"
-                   id="username"
-                   name="username"
-                   placeholder="jan.kowalski@poczta.pl"
-                   [(ngModel)]="model.username">
+                   id="name"
+                   name="name"
+                   placeholder="Jan"
+                   [(ngModel)]="model.name">
+          </div>
+
+          <div class="form-group">
+            <label for="surname">Nazwisko</label>
+            <input type="text"
+                   class="form-control"
+                   id="surname"
+                   name="surname"
+                   placeholder="Kowalski"
+                   [(ngModel)]="model.surname">
           </div>
 
           <div class="form-group">
@@ -38,17 +59,23 @@
                    id="password"
                    name="password"
                    placeholder="*****"
-                   [ngModel]="model.password">
+                   [(ngModel)]="model.password">
           </div>
 
-          <!-- Login Button -->
+          <div class="form-group">
+            <label for="password2">Powtórz hasło</label>
+            <input type="password"
+                   class="form-control"
+                   id="password2"
+                   name="password2"
+                   placeholder="*****"
+                   [(ngModel)]="model.password2">
+          </div>
+
+          <!-- Register Button (click)="register()" -->
           <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
-            <button type="submit" (click)="login()" class="btn btn-outline-success" style="margin-right: 12px;">Zaloguj</button>
-            <button class="btn btn-outline-primary">Zaloguj przez konto Google</button>
-          </div>
-
-          <div>
-            Nie masz konta ? <a routerLink="/register">Zarejestruj się</a>
+            <button type="submit" routerLink="/home" class="btn btn-outline-success" style="margin-right: 12px;">Zarejestruj</button>
+            <button class="btn btn-outline-danger" routerLink="/login">Anuluj</button>
           </div>
 
         </form>
