@@ -1,6 +1,7 @@
-<html xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:insert="fragments.html :: headerfiles">
-  <title>Log in</title>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rejestracja</title>
 </head>
 <body>
 <div class="container">
@@ -10,51 +11,46 @@
         <i class="fa fa-user"></i> Zarejestruj się
       </div>
       <div class="card-block" style="padding: 24px;">
-        <form name="f" th:action="@{/signin}" method="post">
-          <fieldset>
-            <!-- Thymeleaf + Spring Security error display -->
-            <div th:if="${param.error}" class="alert alert-danger">
-              Podany e-mail już istnieje
-            </div>
+        <form #f="ngForm" >
+          <!-- Spring Security error display -->
+          <div *ngIf="showError" class="alert alert-danger">
+            Wpisany e-mail już istnieje. Wpisz unikatowy.
+          </div>
+          <div *ngIf="showLogout" class="alert alert-info">
+            Wylogowano poprawnie
+          </div>
 
-            <!-- Registration Controls -->
-            <div class="form-group">
-              <label for="txtUsername">E-mail</label>
-              <input type="text" class="form-control" id="txtUsername" name="txtUsername"
-                     placeholder="jan.kowalski@poczta.pl">
-            </div>
+          <!-- Login Controls -->
+          <div class="form-group">
+            <label for="username">E-mail</label>
+            <input type="text"
+                   class="form-control"
+                   id="username"
+                   name="username"
+                   placeholder="jan.kowalski@poczta.pl"
+                   [(ngModel)]="model.username">
+          </div>
 
-            <div class="form-group">
-              <label for="txtName">Imię</label>
-              <input type="text" class="form-control" id="txtName" name="txtName"
-                     placeholder="Jan">
-            </div>
+          <div class="form-group">
+            <label for="password">Hasło</label>
+            <input type="password"
+                   class="form-control"
+                   id="password"
+                   name="password"
+                   placeholder="*****"
+                   [ngModel]="model.password">
+          </div>
 
-            <div class="form-group">
-              <label for="txtSurname">Nazwisko</label>
-              <input type="text" class="form-control" id="txtSurname" name="txtSurname"
-                     placeholder="Kowalski">
-            </div>
+          <!-- Login Button -->
+          <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
+            <button type="submit" (click)="login()" class="btn btn-outline-success" style="margin-right: 12px;">Zaloguj</button>
+            <button class="btn btn-outline-primary">Zaloguj przez konto Google</button>
+          </div>
 
-            <div class="form-group">
-              <label for="txtPassword">Hasło</label>
-              <input type="password" class="form-control" id="txtPassword" name="txtPassword"
-                     placeholder="*****">
-            </div>
+          <div>
+            Nie masz konta ? <a routerLink="/register">Zarejestruj się</a>
+          </div>
 
-            <div class="form-group">
-              <label for="txtPassword2">Potwierdź hasło</label>
-              <input type="password" class="form-control" id="txtPassword2" name="txtPassword2"
-                     placeholder="*****">
-            </div>
-
-            <!-- Register Button -->
-            <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
-              <button type="submit" class="btn btn-success" style="margin-right: 12px;">Zarejestruj</button>
-              <button type="submit" class="btn btn-danger">Anuluj</button>
-            </div>
-
-          </fieldset>
         </form>
       </div>
     </div>
