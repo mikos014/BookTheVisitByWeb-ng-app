@@ -11,6 +11,7 @@ import {Router, RouterModule, Routes} from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { EditDataComponent } from './edit-data/edit-data.component';
+import { BookedVisitsComponent } from './booked-visits/booked-visits.component';
 
 const appRoutes: Routes = [
   {
@@ -23,7 +24,15 @@ const appRoutes: Routes = [
   },
   {
     path: 'home',
-    component: NavigationComponent
+    component: HomeComponent
+  },
+  {
+    path: 'editData',
+    component: EditDataComponent
+  },
+  {
+    path: 'myVisits',
+    component: BookedVisitsComponent
   },
   {
     path: '',
@@ -44,7 +53,8 @@ const appRoutes: Routes = [
     NavigationComponent,
     NotFoundComponent,
     HomeComponent,
-    EditDataComponent
+    EditDataComponent,
+    BookedVisitsComponent
   ],
   imports: [
     BrowserModule,

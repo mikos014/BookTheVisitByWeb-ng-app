@@ -1,1 +1,48 @@
-<p>edit-data works!</p>
+<app-navigattion></app-navigattion>
+<h2>You can change both or one of the credentials.</h2>
+<br>
+<form #f="ngForm" >
+  <!-- Spring Security error display -->
+  <div *ngIf="showEmailError" class="alert alert-danger">
+    The e-mail exists. Set unique one.
+  </div>
+
+  <div *ngIf="showPasswordError" class="alert alert-danger">
+    Passwords are not the same.
+  </div>
+
+  <!-- Register Controls -->
+  <div class="form-group">
+    <label for="username">E-mail</label>
+    <input type="text"
+           class="form-control"
+           id="username"
+           name="username"
+           placeholder="jan.kowalski@poczta.pl"
+           [(ngModel)]="model.username">
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password"
+           class="form-control"
+           id="password"
+           name="password"
+           placeholder="*****"
+           [(ngModel)]="model.password">
+  </div>
+
+  <div class="form-group">
+    <label for="password2">Confirm password</label>
+    <input type="password"
+           class="form-control"
+           id="password2"
+           name="password2"
+           placeholder="*****"
+           [(ngModel)]="model.password2">
+  </div>
+  <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
+    <button type="submit" (click)="confirm()" class="btn btn-outline-success" style="margin-right: 12px;">Confirm</button>
+    <button class="btn btn-outline-danger" routerLink="/home">Cancel</button>
+  </div>
+</form>

@@ -8,6 +8,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
+  title = 'BookTheVisit';
   model = {
     username: '',
     password: ''
