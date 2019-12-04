@@ -1,1 +1,21 @@
 <app-navigattion></app-navigattion>
+<table class="table table-dark table-hover">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Spec</th>
+    <th>Doctor</th>
+    <th>Date</th>
+    <th>Time</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let visit of visits; let i = index">
+    <td>{{i+1}}</td>
+    <td>{{visit.visitDate}}</td>
+    <td>{{visit.visitHour}}</td>
+    <td>{{visit.doctorSpec}}</td>
+    <td>{{visit.doctorName}}</td>
+  </tr>
+  </tbody>
+</table>

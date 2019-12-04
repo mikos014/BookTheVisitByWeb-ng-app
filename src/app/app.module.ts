@@ -12,6 +12,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { EditDataComponent } from './edit-data/edit-data.component';
 import { BookedVisitsComponent } from './booked-visits/booked-visits.component';
+import { BookingVisitComponent } from './booking-visit/booking-visit.component';
 
 const appRoutes: Routes = [
   {
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     NotFoundComponent,
     HomeComponent,
     EditDataComponent,
-    BookedVisitsComponent
+    BookedVisitsComponent,
+    BookingVisitComponent
   ],
   imports: [
     BrowserModule,
