@@ -28,7 +28,7 @@
                      id="username"
                      name="username"
                      placeholder="jan.kowalski@poczta.pl"
-                     [(ngModel)]="model.username">
+                     [(ngModel)]="username">
             </div>
 
             <div class="form-group">
@@ -38,19 +38,18 @@
                      id="password"
                      name="password"
                      placeholder="*****"
-                     [ngModel]="model.password">
+                     [(ngModel)]="password">
             </div>
 
-            <!-- Login Button (click)="login()" -->
+            <!-- Login Button  -->
             <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
-              <button type="submit" routerLink="/home" class="btn btn-outline-success" style="margin-right: 12px;">Log in</button>
-              <button class="btn btn-outline-primary">Log in with Google account</button>
+              <button type="submit" (click)="login()" class="btn btn-outline-success" style="margin-right: 12px;">Log in</button>
+              <button class="btn btn-outline-primary" routerLink="/loginGoogle">Log in with Google account</button>
             </div>
 
             <div>
               Don't have an account ? <a routerLink="/register">Register now</a>
             </div>
-
         </form>
       </div>
     </div>

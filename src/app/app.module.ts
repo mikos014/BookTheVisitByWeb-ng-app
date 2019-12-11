@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Router, RouterModule, Routes} from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { EditDataComponent } from './edit-data/edit-data.component';
 import { BookedVisitsComponent } from './booked-visits/booked-visits.component';
 import { BookingVisitComponent } from './booking-visit/booking-visit.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from './api.service';
 
 const appRoutes: Routes = [
   {
@@ -62,9 +64,11 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes, {enableTracing: true})
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes, {enableTracing: true}),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
