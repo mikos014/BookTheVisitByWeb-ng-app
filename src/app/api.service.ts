@@ -33,6 +33,10 @@ export class ApiService {
     return this.http.post(environment.baseUrl + '/register', data);
   }
 
+  abc(data) {
+    return this.http.get(environment.baseUrl + '/api/abc', );
+  }
+
   getUsers() {
     return this.http.get(environment.baseUrl + 'user?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token);
   }
