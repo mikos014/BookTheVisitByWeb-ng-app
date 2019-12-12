@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ApiService} from '../api.service';
+import {log} from 'util';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +13,14 @@ import {ApiService} from '../api.service';
 export class LoginComponent implements OnInit {
 
   title = 'BookTheVisit';
+  signUp: any = {} as any;
 
   username: '';
   password: '';
   showError = false;
   showLogout = false;
+
+  abc: any;
   constructor(private router: Router, private apiService: ApiService) {
   }
 
@@ -30,19 +34,30 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.showError = false;
-    const body = new HttpParams()
-      .set('username', this.username)
-      .set('password', this.password);
 
-    this.apiService.login(body.toString()).subscribe(
-      data => {
-            window.sessionStorage.setItem('token', JSON.stringify(data));
-            console.log(window.sessionStorage.getItem('token'));
-            this.router.navigate(['/home']);
-          },
-      error => {
-            alert(error.error.error_description);
-    });
+
+    this.signUp.email = this.username;
+    this.signUp.password = this.password;
+
+    this.apiService.login(this.signUp)
+      .subscribe((res: any) => {
+        localStorage.setItem('token', res.token);
+        console.log(res.text());
+      });
+
+    this.router.navigateByUrl('/home');
+
+
+
+    // this.apiService.login(body.toString()).subscribe(
+    //   data => {
+    //         window.sessionStorage.setItem('token', JSON.stringify(data));
+    //         console.log(window.sessionStorage.getItem('token'));
+    //         this.router.navigateByUrl('/home');
+    //       },
+    //   error => {
+    //         alert(error.error.error_description);
+    // });
   }
 
 }

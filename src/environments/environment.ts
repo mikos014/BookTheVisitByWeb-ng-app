@@ -2,9 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import {any} from 'codelyzer/util/function';
+
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8082/'
+  baseUrl: 'http://localhost:8082',
+  token: String
 };
 
 /*
