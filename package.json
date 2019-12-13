@@ -19,13 +19,14 @@
     "@angular/platform-browser": "~8.2.13",
     "@angular/platform-browser-dynamic": "~8.2.13",
     "@angular/router": "~8.2.13",
+    "@uirouter/angular": "latest",
+    "angular5-social-login": "^1.0.9",
     "bootstrap": "^4.4.1",
     "bootstrap-awesome": "^1.0.2",
     "font-awesome": "^4.7.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1",
-    "@uirouter/angular": "latest"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.17",

@@ -15,6 +15,19 @@ import { BookedVisitsComponent } from './booked-visits/booked-visits.component';
 import { BookingVisitComponent } from './booking-visit/booking-visit.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './api.service';
+import {AuthService, AuthServiceConfig, GoogleLoginProvider} from 'angular5-social-login';
+
+export function socialConfigs() {
+  const config = new AuthServiceConfig(
+[
+      {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        provider: new GoogleLoginProvider('app-id')
+      }
+    ]
+  );
+  return config;
+}
 
 const appRoutes: Routes = [
   {
@@ -68,7 +81,14 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, {enableTracing: true}),
     HttpClientModule
   ],
-  providers: [ApiService],
+  providers: [
+    ApiService,
+    AuthService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: socialConfigs
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

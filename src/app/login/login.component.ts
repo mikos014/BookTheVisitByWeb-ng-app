@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ApiService} from '../api.service';
 import {log} from 'util';
+import {AuthService} from 'angular5-social-login';
+import {SocialloginService} from '../services/sociallogin.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   showLogout = false;
 
   abc: any;
-  constructor(private router: Router, private apiService: ApiService) {
+  constructor(private router: Router, private apiService: ApiService,
+              public OAuth: AuthService, private socialloginService: SocialloginService,  ) {
   }
 
   ngOnInit(): void {
