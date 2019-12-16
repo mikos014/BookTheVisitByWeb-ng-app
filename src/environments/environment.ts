@@ -7,7 +7,9 @@ import {any} from 'codelyzer/util/function';
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:8082',
-  token: String
+  responseOK: 200,
+  responseEmailConflict: 409,
+  responseLenPasswordError: 406
 };
 
 /*

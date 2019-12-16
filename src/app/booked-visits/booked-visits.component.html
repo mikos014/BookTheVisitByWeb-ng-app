@@ -12,10 +12,10 @@
   <tbody>
   <tr *ngFor="let visit of visits; let i = index">
     <td>{{i+1}}</td>
-    <td>{{visit.visitDate}}</td>
-    <td>{{visit.visitHour}}</td>
-    <td>{{visit.doctorSpec}}</td>
-    <td>{{visit.doctorName}}</td>
+    <td>{{visit.doctor.spec}}</td>
+    <td>{{visit.doctor.surname + visit.doctor.spec}}</td>
+    <td>{{visit.date}}</td>
+    <td>{{visit.time}}</td>
   </tr>
   </tbody>
 </table>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {ApiService} from '../api.service';
+import {ApiService} from '../services/api.service';
 import {log} from 'util';
 import {AuthService} from 'angular5-social-login';
 import {SocialloginService} from '../services/sociallogin.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -14,20 +15,18 @@ import {SocialloginService} from '../services/sociallogin.service';
 export class LoginComponent implements OnInit {
 
   title = 'BookTheVisit';
-  signUp: any = {} as any;
+  logIn: any = {} as any;
 
   username: '';
   password: '';
   showError = false;
   showLogout = false;
 
-  abc: any;
   constructor(private router: Router, private apiService: ApiService,
-              public OAuth: AuthService, private socialloginService: SocialloginService,  ) {
+              public OAuth: AuthService, private socialloginService: SocialloginService) {
   }
 
   ngOnInit(): void {
-    window.sessionStorage.removeItem('token');
   }
 
   login() {
@@ -37,29 +36,19 @@ export class LoginComponent implements OnInit {
     }
     this.showError = false;
 
+    this.logIn.email = this.username;
+    this.logIn.password = this.password;
 
-    this.signUp.email = this.username;
-    this.signUp.password = this.password;
-
-    this.apiService.login(this.signUp)
+    this.apiService.login(this.logIn)
       .subscribe((res: any) => {
-        localStorage.setItem('token', res.token);
-        console.log(res.text());
+        // console.log(res.text());
+        console.log(res);
+        if (res === environment.responseOK) {
+          this.router.navigateByUrl('/home');
+        } else {
+          // nie działa wyśwetlanie komunikatu o błędzie logowania
+          this.showError = true;
+        }
       });
-
-    this.router.navigateByUrl('/home');
-
-
-
-    // this.apiService.login(body.toString()).subscribe(
-    //   data => {
-    //         window.sessionStorage.setItem('token', JSON.stringify(data));
-    //         console.log(window.sessionStorage.getItem('token'));
-    //         this.router.navigateByUrl('/home');
-    //       },
-    //   error => {
-    //         alert(error.error.error_description);
-    // });
   }
-
 }

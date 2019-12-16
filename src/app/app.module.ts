@@ -12,10 +12,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { EditDataComponent } from './edit-data/edit-data.component';
 import { BookedVisitsComponent } from './booked-visits/booked-visits.component';
-import { BookingVisitComponent } from './booking-visit/booking-visit.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ApiService } from './api.service';
+import { ApiService } from './services/api.service';
 import {AuthService, AuthServiceConfig, GoogleLoginProvider} from 'angular5-social-login';
+import { BookTheVisitComponent } from './book-the-visit/book-the-visit.component';
 
 export function socialConfigs() {
   const config = new AuthServiceConfig(
@@ -71,7 +71,7 @@ const appRoutes: Routes = [
     HomeComponent,
     EditDataComponent,
     BookedVisitsComponent,
-    BookingVisitComponent
+    BookTheVisitComponent
   ],
   imports: [
     BrowserModule,

@@ -11,15 +11,23 @@
         <i class="fa fa-user"></i> Create new account
       </div>
       <div class="card-block" style="padding: 24px;">
-        <form [formGroup]="addForm" (ngSubmit)="register()" >
+        <form >
           <!-- Spring Security error display -->
           <div *ngIf="showEmailError" class="alert alert-danger">
           The e-mail exists. Set unique one.
-        </div>
+          </div>
 
-          <!--<div *ngIf="showPasswordError" class="alert alert-danger">-->
-            <!--Passwords are not the same.-->
-          <!--</div>-->
+          <div *ngIf="showEmptyInputError" class="alert alert-danger">
+            Each input have to be filled.
+          </div>
+
+          <div *ngIf="showPasswordError" class="alert alert-danger">
+            Passwords are not the same.
+          </div>
+
+          <div *ngIf="showLenPasswordError" class="alert alert-danger">
+            Passwords too short.
+          </div>
 
           <!-- Register Controls -->
           <div class="form-group">
@@ -29,7 +37,7 @@
                  id="username"
                  name="username"
                  placeholder="jan.kowalski@poczta.pl"
-                 formControlName="username">
+                 [(ngModel)]="username">
           </div>
 
           <div class="form-group">
@@ -39,7 +47,7 @@
                    id="name"
                    name="name"
                    placeholder="Jan"
-                   formControlName="name">
+                   [(ngModel)]="name">
           </div>
 
           <div class="form-group">
@@ -49,7 +57,7 @@
                    id="surname"
                    name="surname"
                    placeholder="Kowalski"
-                   formControlName="surname">
+                   [(ngModel)]="surname">
           </div>
 
           <div class="form-group">
@@ -59,22 +67,22 @@
                    id="password"
                    name="password"
                    placeholder="*****"
-                   formControlName="password">
+                   [(ngModel)]="password">
           </div>
 
-          <!--<div class="form-group">-->
-            <!--<label for="password2">Confirm password</label>-->
-            <!--<input type="password"-->
-                   <!--class="form-control"-->
-                   <!--id="password2"-->
-                   <!--name="password2"-->
-                   <!--placeholder="*****"-->
-                   <!--formControlName="password2">-->
-          <!--</div>-->
+          <div class="form-group">
+            <label for="password2">Confirm password</label>
+            <input type="password"
+                   class="form-control"
+                   id="password2"
+                   name="password2"
+                   placeholder="*****"
+                   [(ngModel)]="password2">
+          </div>
 
           <!-- Register Button -->
           <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
-            <button type="submit" class="btn btn-outline-success" style="margin-right: 12px;">Register</button>
+            <button (click)="register()" class="btn btn-outline-success" style="margin-right: 12px;">Register</button>
             <button class="btn btn-outline-danger" routerLink="/login">Cancel</button>
           </div>
 
