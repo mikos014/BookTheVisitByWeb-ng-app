@@ -5,44 +5,82 @@ import 'rxjs-compat/add/operator/map';
 import {Visit} from '../models/visit.model';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import 'rxjs-compat/add/operator/catch';
+import {any} from 'codelyzer/util/function';
 
-interface VisitResponse {
-  visits: Array<Visit>;
-}
-
+// interface VisitResponse {
+//   visits: Array<Visit>;
+// }
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
+  token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmMiLCJleHAiOjE1NzY1MjY3MjR9.naIHC8lU17yzfr4EgH8TQxkgu_aCj4LsVZdE5WDOD7RFrYZZFKoFG0lSKZjDkJkLVaeTtjT7n53BwZjp6Y7DLg';
+
   constructor(private http: HttpClient) { }
+
+  static handleError(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `${error.error.message.status}`;
+    } else {
+      // server-side error
+      errorMessage = `${error.status}`;
+    }
+    return errorMessage;
+  }
 
   login(loginPayload) {
 
     return this.http.post(environment.baseUrl + '/login', loginPayload, { observe: 'response' })
-      .map(res => res.status);
-      // .map(response => console.log(response.status));
+      // .map(res => res.status)
+      .map((data: any) => {
+        this.token = data.headers.get('Authorization');
+        console.log(this.token + ' abc ' + ' de ' + data.headers);
+        return data.status;
+      })
+      .catch(ApiService.handleError);
   }
 
   register(data) {
-    return this.http.post(environment.baseUrl + '/register', data);
+    return this.http.post(environment.baseUrl + '/register', data, { observe: 'response' })
+      .map(res => res.status)
+      .catch(ApiService.handleError);
+  }
+
+  logout() {
+    return this.http.post(environment.baseUrl + '/logout', { observe: 'response' })
+      .map(res => any)
+      .catch(ApiService.handleError);
   }
 
   editData(data) {
-    return this.http.post(environment.baseUrl + '/api/editData', data);
+    return this.http.post(environment.baseUrl + '/api/editData', data, { observe: 'response' })
+      .map(res => res.status)
+      .catch(ApiService.handleError);
   }
 
-  getDoctors() {
-    return this.http.get(environment.baseUrl + '/api/doctors');
-  }
-
-  getDoctorsBySpec(spec) {
-
-  }
+  // getDoctors() {
+  //   return this.http.get(environment.baseUrl + '/api/doctors');
+  // }
+  //
+  // getDoctorsBySpec(spec) {
+  //
+  // }
 
   getUnoccupiedVisits() {
-    return this.http.get<Visit[]>(environment.baseUrl + '/api/showVisits');
+    const header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: this.token
+    });
+    const httpOptions = {
+      headers: header
+    };
+    return this.http.get<Visit[]>(environment.baseUrl + '/api/showVisits', httpOptions);
   }
 
 

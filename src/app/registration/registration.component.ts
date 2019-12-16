@@ -10,18 +10,20 @@ import {environment} from '../../environments/environment';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  signUp: any = {} as any;
-
-  username: '';
-  name: '';
-  surname: '';
-  password: '';
-  password2: '';
 
   showEmptyInputError = false;
   showEmailError = false;
   showPasswordError = false;
   showLenPasswordError = false;
+
+  private signUp: any = {} as any;
+  private username: '';
+  private name: '';
+  private surname: '';
+  private password: '';
+  private password2: '';
+
+  private response;
 
   constructor(private router: Router, private apiService: ApiService) { }
 
@@ -31,10 +33,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   register() {
-    this.showEmptyInputError = false;
-    this.showEmailError = false;
-    this.showPasswordError = false;
-    this.showLenPasswordError = false;
+    this.clearErrors();
 
     if (!this.username || !this.password || !this.password2 || !this.name || !this.surname) {
       this.showPasswordError = false;
@@ -54,15 +53,23 @@ export class RegistrationComponent implements OnInit {
       .subscribe((res: any) => {
         // console.log(res.text());
         console.log(res);
-        if (res === environment.responseOK) {
-          this.router.navigateByUrl('/login');
-        } else if (res === environment.responseEmailConflict) {
-          // nie działa wyśwetlanie komunikatu o błędzie logowania
-          this.showEmailError = true;
-        } else if (res === environment.responseLenPasswordError) {
-          this.showLenPasswordError = true;
-        }
+        this.response = res;
+      // });
+        if (this.response === environment.responseOK) {
+        this.router.navigateByUrl('/login');
+      } else if (this.response === environment.responseEmailConflict) {
+        // nie działa wyśwetlanie komunikatu o błędzie logowania
+        this.showEmailError = true;
+      } else if (this.response === environment.responseLenPasswordError) {
+        this.showLenPasswordError = true;
+      }
       });
+  }
 
+  clearErrors() {
+    this.showEmptyInputError = false;
+    this.showEmailError = false;
+    this.showPasswordError = false;
+    this.showLenPasswordError = false;
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {ApiService} from '../services/api.service';
 
 @Component({
   selector: 'app-navigattion',
@@ -8,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
   }
@@ -21,7 +22,7 @@ export class NavigationComponent implements OnInit {
   // }
 
   logout() {
-    localStorage.removeItem('token');
+    // this.apiService.logout();
     this.router.navigate(['/login']);
   }
 }

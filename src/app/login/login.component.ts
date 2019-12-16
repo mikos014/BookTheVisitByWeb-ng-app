@@ -41,14 +41,17 @@ export class LoginComponent implements OnInit {
 
     this.apiService.login(this.logIn)
       .subscribe((res: any) => {
-        // console.log(res.text());
         console.log(res);
         if (res === environment.responseOK) {
-          this.router.navigateByUrl('/home');
+          // this.router.navigateByUrl('/home');
         } else {
           // nie działa wyśwetlanie komunikatu o błędzie logowania
           this.showError = true;
         }
       });
+  }
+
+  setLogoutStatus() {
+    this.showLogout = true;
   }
 }
