@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {ApiService} from '../services/api.service';
+import {TokenStorage} from '../core/token-storage';
 
 @Component({
   selector: 'app-navigattion',
@@ -9,21 +9,14 @@ import {ApiService} from '../services/api.service';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private router: Router, private apiService: ApiService) { }
+  constructor(private router: Router, private token: TokenStorage) { }
 
   ngOnInit() {
   }
 
-  // logout() {
-  //   this.http.post('logout', {}).finally(() => {
-  //     this.app.authenticated = false;
-  //     this.router.navigateByUrl('/');
-  //   }).subscribe();
-  // }
-
-  logout() {
-    // this.apiService.logout();
-
-    this.router.navigateByUrl('/login');
+  logout(): void {
+    this.token.logOut();
+    this.router.navigate(['/login']).then(() =>
+      this.token.reloadPage());
   }
 }

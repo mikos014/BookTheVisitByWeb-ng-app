@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {ApiService} from '../services/api.service';
+import {environment} from '../../environments/environment';
+import {User} from '../models/user.model';
 
 @Component({
   selector: 'app-edit-data',
@@ -8,13 +10,11 @@ import {ApiService} from '../services/api.service';
   styleUrls: ['./edit-data.component.css']
 })
 export class EditDataComponent implements OnInit {
-  model = {
-    username: '',
-    name: '',
-    surname: '',
-    password: '',
-    password2: ''
-  };
+  // private formData: any = {} as any;
+  email: string;
+  password: string;
+  password2: string;
+
   showEmailError = false;
   showPasswordError = false;
   constructor(private router: Router, private apiService: ApiService) { }
@@ -22,13 +22,34 @@ export class EditDataComponent implements OnInit {
   ngOnInit() {
   }
 
-  confirm() {
-    if (this.model.password !== this.model.password2) {
+  confirm(): void {
+    this.clearErrors();
+
+    if (this.password !== this.password2) {
       this.showPasswordError = true;
     } else {
-      this.showPasswordError = false;
-      this.router.navigateByUrl('/home');
+      console.log(this.email + this.password);
+
+      let user: User;
+      user = {
+        email: this.email,
+        password: this.password
+      };
+
+      this.apiService.editData(user)
+        .subscribe(
+          data => {
+            this.router.navigate(['/home']);
+          },
+          error => {
+            this.showEmailError = true;
+        });
     }
+  }
+
+  clearErrors() {
+    this.showEmailError = false;
+    this.showPasswordError = false;
   }
 
 }

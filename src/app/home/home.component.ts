@@ -60,7 +60,10 @@ export class HomeComponent implements OnInit {
       formData.append('dateTo', this.filteredDateTo);
 
       this.apiService.getUnoccupiedVisitsFiltered(this.filteredSpec, this.filteredDateFrom, this.filteredDateTo)
-        .subscribe((data: any[]) => this.visits = data);
+        .subscribe(
+        data => this.visits = data,
+        error => {
+        });
 
     }
     this.isTableVisible = true;

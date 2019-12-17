@@ -1,8 +1,8 @@
 import {Doctor} from './doctor.model';
 
-export class Visit {
-  id: any;
+export interface Visit {
+  id: number;
   date: any;
-  time: any;
+  time: string;
   doctor: Doctor;
 }

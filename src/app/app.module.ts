@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import {AuthService, AuthServiceConfig, GoogleLoginProvider} from 'angular5-social-login';
 import { BookTheVisitComponent } from './book-the-visit/book-the-visit.component';
+import {TokenStorage} from './core/token-storage';
+import {AuthenticationService} from './core/authentication-service';
 
 export function socialConfigs() {
   const config = new AuthServiceConfig(
@@ -88,6 +90,8 @@ const appRoutes: Routes = [
   providers: [
     ApiService,
     AuthService,
+    AuthenticationService,
+    TokenStorage,
     {
       provide: AuthServiceConfig,
       useFactory: socialConfigs

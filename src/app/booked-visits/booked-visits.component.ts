@@ -35,9 +35,13 @@ export class BookedVisitsComponent implements OnInit {
 
   ngOnInit() {
     this.apiService.getMyVisits()
-      .subscribe((res: any[]) => {
-        this.visits = res;
-      });
+      .subscribe(
+        data => {
+          this.visits = data;
+        },
+        error => {
+          }
+        );
   }
 
 }

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {ApiService} from '../services/api.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {environment} from '../../environments/environment';
+import {AuthenticationService} from '../core/authentication-service';
 
 @Component({
   selector: 'app-registration',
@@ -16,7 +14,7 @@ export class RegistrationComponent implements OnInit {
   showPasswordError = false;
   showLenPasswordError = false;
 
-  private signUp: any = {} as any;
+  // private signUp: any = {} as any;
   private username: '';
   private name: '';
   private surname: '';
@@ -25,7 +23,7 @@ export class RegistrationComponent implements OnInit {
 
   private response;
 
-  constructor(private router: Router, private apiService: ApiService) { }
+  constructor(private router: Router, private authentService: AuthenticationService) { }
 
   // addForm: FormGroup;
 
@@ -44,26 +42,26 @@ export class RegistrationComponent implements OnInit {
       return;
     }
 
-    this.signUp.email = this.username;
-    this.signUp.password = this.password;
-    this.signUp.name = this.name;
-    this.signUp.surname = this.surname;
 
-    this.apiService.register(this.signUp)
-      .subscribe((res: any) => {
-        // console.log(res.text());
-        console.log(res);
-        this.response = res;
+    this.authentService.register(this.username, this.name, this.surname, this.password)
+      .subscribe(
+        data => {
+          this.router.navigate(['/login']);
+          console.log(data);
+        },
+        error => {
+            this.showEmailError = true;
+            console.log(error);
+        });
+      //   if (this.response === environment.responseOK) {
+      //   this.router.navigate(['/login']);
+      // } else if (this.response === environment.responseEmailConflict) {
+      //   // nie działa wyśwetlanie komunikatu o błędzie logowania
+      //   this.showEmailError = true;
+      // } else if (this.response === environment.responseLenPasswordError) {
+      //   this.showLenPasswordError = true;
+      // }
       // });
-        if (this.response === environment.responseOK) {
-        this.router.navigateByUrl('/login');
-      } else if (this.response === environment.responseEmailConflict) {
-        // nie działa wyśwetlanie komunikatu o błędzie logowania
-        this.showEmailError = true;
-      } else if (this.response === environment.responseLenPasswordError) {
-        this.showLenPasswordError = true;
-      }
-      });
   }
 
   clearErrors() {
