@@ -18,7 +18,12 @@ import {any} from 'codelyzer/util/function';
 })
 export class ApiService {
 
-  token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmMiLCJleHAiOjE1NzY1MjY3MjR9.naIHC8lU17yzfr4EgH8TQxkgu_aCj4LsVZdE5WDOD7RFrYZZFKoFG0lSKZjDkJkLVaeTtjT7n53BwZjp6Y7DLg';
+  private token;
+
+  header = new HttpHeaders({
+    'Content-Type': 'application/json',
+    Authorization: this.token
+  });
 
   constructor(private http: HttpClient) { }
 
@@ -40,7 +45,7 @@ export class ApiService {
       // .map(res => res.status)
       .map((data: any) => {
         this.token = data.headers.get('Authorization');
-        console.log(this.token + ' abc ' + ' de ' + data.headers);
+        console.log(this.token + ' abc ' + ' de ' + data.status);
         return data.status;
       })
       .catch(ApiService.handleError);
@@ -53,13 +58,13 @@ export class ApiService {
   }
 
   logout() {
-    return this.http.post(environment.baseUrl + '/logout', { observe: 'response' })
+    return this.http.post(environment.baseUrl + '/logout', { headers: this.header, observe: 'response' })
       .map(res => any)
       .catch(ApiService.handleError);
   }
 
   editData(data) {
-    return this.http.post(environment.baseUrl + '/api/editData', data, { observe: 'response' })
+    return this.http.post(environment.baseUrl + '/api/editData', data, { headers: this.header, observe: 'response' })
       .map(res => res.status)
       .catch(ApiService.handleError);
   }
@@ -73,14 +78,7 @@ export class ApiService {
   // }
 
   getUnoccupiedVisits() {
-    const header = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: this.token
-    });
-    const httpOptions = {
-      headers: header
-    };
-    return this.http.get<Visit[]>(environment.baseUrl + '/api/showVisits', httpOptions);
+    return this.http.get<Visit[]>(environment.baseUrl + '/api/showVisits', { headers: this.header });
   }
 
 
@@ -89,44 +87,24 @@ export class ApiService {
   // }
 
   getUnoccupiedVisitsFiltered(spec, dateFrom, dateTo) {
-    const params = new HttpParams().set('spec', spec).set('dateFrom', dateFrom).set('dateTo', dateTo);
-    return this.http.get(environment.baseUrl + '/api/showVisits', {params});
+    const param = new HttpParams().set('spec', spec).set('dateFrom', dateFrom).set('dateTo', dateTo);
+    return this.http.get<Visit[]>(environment.baseUrl + '/api/showVisits', { headers: this.header, params: param});
   }
 
   bookTheVisit(id) {
-    const params = new HttpParams().set('idVisit', id);
-    return this.http.post(environment.baseUrl + '/api/showVisits', {params});
+    const param = new HttpParams().set('idVisit', id);
+    return this.http.post(environment.baseUrl + '/api/showVisits', { headers: this.header, params: param});
   }
 
   getMyVisits() {
-    return this.http.get<Visit[]>(environment.baseUrl + '/api/showVisits');
+    return this.http.get<Visit[]>(environment.baseUrl + '/api/showVisits', { headers: this.header });
   }
 
   /******* test ******/
   abc() {
-    return this.http.get(environment.baseUrl + '/api/abc', { observe: 'response' });
+    return this.http.get(environment.baseUrl + '/api/abc', { observe: 'response' })
+      .map(res => res.status)
+      .catch(ApiService.handleError);
   }
 
-
-
-
-  getUsers() {
-    return this.http.get(environment.baseUrl + 'user?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token);
-  }
-
-  // getUserById(id: number) {
-  //   return this.http.get(environment.baseUrl + 'user/' + id + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token);
-  // }
-  //
-  // createUser(user: User) {
-  //   return this.http.post(environment.baseUrl + 'user?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, user);
-  // }
-  //
-  // updateUser(newUserData: User) {
-  //   return this.http.put(environment.baseUrl + 'user/' + newUserData + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, newUserData);
-  // }
-
-  // deleteUser(id: number) {
-  //   return this.http.delete(environment.baseUrl + 'user/' + id + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token);
-  // }
 }

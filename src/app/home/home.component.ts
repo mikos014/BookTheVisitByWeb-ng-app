@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
 
   visits: Visit[];
   abc = '';
-  message;
+  messageToBookingComponent;
   constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
@@ -72,11 +72,10 @@ export class HomeComponent implements OnInit {
   }
 
   launchBooking(idView) {
-    this.abc = this.visits[idView].id;
+    this.messageToBookingComponent = this.visits[idView].id;
     // odczytaj tabelaZTerminami[i-1] i przekaż
     // let id;
     // id = this.visits.valueOf(idView);
-
     this.router.navigateByUrl('/bookTheVisit');
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {ApiService} from '../services/api.service';
 
 @Component({
   selector: 'app-edit-data',
@@ -16,7 +17,7 @@ export class EditDataComponent implements OnInit {
   };
   showEmailError = false;
   showPasswordError = false;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
   }
@@ -26,7 +27,7 @@ export class EditDataComponent implements OnInit {
       this.showPasswordError = true;
     } else {
       this.showPasswordError = false;
-      this.router.navigateByUrl('home');
+      this.router.navigateByUrl('/home');
     }
   }
 

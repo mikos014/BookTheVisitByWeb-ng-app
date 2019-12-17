@@ -23,6 +23,7 @@ export class NavigationComponent implements OnInit {
 
   logout() {
     // this.apiService.logout();
-    this.router.navigate(['/login']);
+
+    this.router.navigateByUrl('/login');
   }
 }

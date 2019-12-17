@@ -51,6 +51,10 @@ const appRoutes: Routes = [
     component: BookedVisitsComponent
   },
   {
+    path: 'bookTheVisit',
+    component: BookTheVisitComponent
+  },
+  {
     path: '',
     component: LoginComponent,
     pathMatch: 'full'

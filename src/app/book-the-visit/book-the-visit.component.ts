@@ -15,7 +15,7 @@ export class BookTheVisitComponent implements OnInit {
   constructor(private home: HomeComponent, private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
-    this.home.message.subscribe(message => this.currentId = message);
+    this.home.messageToBookingComponent.subscribe(message => this.currentId = message);
   }
 
   confirmBooking() {

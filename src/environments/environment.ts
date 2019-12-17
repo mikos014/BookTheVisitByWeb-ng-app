@@ -9,7 +9,8 @@ export const environment = {
   baseUrl: 'http://localhost:8082',
   responseOK: 200,
   responseEmailConflict: 409,
-  responseLenPasswordError: 406
+  responseLenPasswordError: 406,
+  responseServerError: 500
 };
 
 /*

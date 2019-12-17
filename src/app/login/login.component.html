@@ -16,6 +16,11 @@
             <div *ngIf="showError" class="alert alert-danger">
               Log In Error. Check credentials.
             </div>
+
+          <div *ngIf="show" class="alert alert-danger">
+            Log In Error. Check credentials.
+          </div>
+
             <div *ngIf="showLogout" class="alert alert-info">
               Log out success !
             </div>
@@ -50,7 +55,6 @@
             <div>
               Don't have an account ? <a routerLink="/register">Register now</a>
             </div>
-          {{abc}}
         </form>
       </div>
     </div>
