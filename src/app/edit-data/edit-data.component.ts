@@ -11,9 +11,9 @@ import {User} from '../models/user.model';
 })
 export class EditDataComponent implements OnInit {
   // private formData: any = {} as any;
-  email: string;
-  password: string;
-  password2: string;
+  email: string = null;
+  password: string = null;
+  password2: string = null;
 
   showEmailError = false;
   showPasswordError = false;

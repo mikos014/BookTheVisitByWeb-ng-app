@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {HomeComponent} from '../home/home.component';
+import {Component, OnInit} from '@angular/core';
 import { Router} from '@angular/router';
 import {ApiService} from '../services/api.service';
+import {Visit} from '../models/visit.model';
+import {Doctor} from '../models/doctor.model';
+import {HomeComponent} from '../home/home.component';
 
 @Component({
   selector: 'app-book-the-visit',
@@ -10,13 +12,32 @@ import {ApiService} from '../services/api.service';
 })
 export class BookTheVisitComponent implements OnInit {
 
-  private currentId: any;
+  currentId: number;
+  visit: Visit[];
+  doctor: Doctor[];
+  isVisibleBody = false;
 
-  constructor(private home: HomeComponent, private router: Router, private apiService: ApiService) { }
+  constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
-    this.home.messageToBookingComponent.subscribe(message => this.currentId = message);
-  }
+    // this.apiService.currentMessage.subscribe(message => this.currentId = message);
+    // console.log(this.currentId);
+
+    this.apiService.getDoctors()
+      .subscribe(
+        data => {
+          this.doctor = data as Doctor[];
+        }
+      );
+    console.log('das' + this.doctor);
+
+    this.apiService.getMyVisits()
+      .subscribe(
+        data => {
+          this.visit = data as Visit[];
+        }
+      );
+    }
 
   confirmBooking() {
     this.apiService.bookTheVisit(this.currentId);

@@ -1,4 +1,19 @@
 <app-navigattion></app-navigattion>
-<p>book-the-visit works!</p>
+<html>
+  <body *ngIf="isVisibleBody">
+    <h1>Would you like to book this visit ?</h1><br>
+    <div class="form-group">
+      <!--<label>Date: {{visit.date}}</label><br>-->
+      <!--<label>Time: {{visit.time}}</label><br>-->
+      <!--<label>Doctor's spec: {{doctor.spec}}</label><br>-->
+      <!--<label>Date: {{doctor.surname + '' + doctor.name}}</label><br>-->
+    </div>
+    <div class="form-group">
+      <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
+        <button class="btn btn-outline-success" (click)="confirmBooking() "style="margin-right: 12px;">Confirm</button>
+        <button class="btn btn-outline-danger" routerLink="/home">Cancel</button>
+      </div>
+    </div>
+  </body>
+</html>
 {{currentId}}
-<!--Data, godzina, lekarz, button zatwierdź i anuluj-->

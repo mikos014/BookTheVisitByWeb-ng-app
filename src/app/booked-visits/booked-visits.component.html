@@ -1,5 +1,6 @@
 <app-navigattion></app-navigattion>
-<table class="table table-dark table-hover">
+<h1>Your visits: </h1><br>
+<table *ngIf="isTableVisible" class="table table-dark">
   <thead>
   <tr>
     <th>#</th>
@@ -10,10 +11,10 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let visit of visits; let i = index">
-    <td>{{i+1}}</td>
-    <td>{{visit.doctor.spec}}</td>
-    <td>{{visit.doctor.surname + visit.doctor.spec}}</td>
+  <tr *ngFor="let visit of visits;">
+    <td>{{visits.indexOf(visit) + 1}}</td>
+    <td>{{(doctors[visit.doctor- 1]).spec}}</td>
+    <td>{{(doctors[visit.doctor - 1]).surname + ' ' + doctors[visit.doctor - 1].name}}</td>
     <td>{{visit.date}}</td>
     <td>{{visit.time}}</td>
   </tr>

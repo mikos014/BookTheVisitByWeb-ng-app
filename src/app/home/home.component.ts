@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {ApiService} from '../services/api.service';
 import {Visit} from '../models/visit.model';
+import {Doctor} from '../models/doctor.model';
+import {DateFilter} from '../models/date-filter.model';
+import {User} from '../models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -10,81 +13,90 @@ import {Visit} from '../models/visit.model';
 })
 export class HomeComponent implements OnInit {
 
-  filteredSpec = '';
-  filteredDateFrom = '';
-  filteredDateTo = '';
+  filteredSpec: string;
+  filteredDateFrom: string;
+  filteredDateTo: string;
 
   isTableVisible = false;
-  selectedRow = '';
-  // visitz = [{
-  //   id: '1',
-  //   doctorSpec: 'laryngolog',
-  //   doctorName: 'Smith',
-  //   visitDate: '20.12.2019',
-  //   visitHour: '13:30'
-  // },
-  // {
-  //   id: '132',
-  //   doctorSpec: 'pediatra',
-  //   doctorName: 'Abc',
-  //   visitDate: '20.02.2019',
-  //   visitHour: '16:30'
-  // },
-  // {
-  //   id: '1214',
-  //   doctorSpec: 'pediatra',
-  //   doctorName: 'Abc',
-  //   visitDate: '20.02.2019',
-  //   visitHour: '16:30'
-  // }];
 
   visits: Visit[];
-  abc = '';
-  messageToBookingComponent;
+  doctors: Doctor[];
+  messageNoVisit = '';
+
+  selectedRow: number;
+
   constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
+    this.apiService.getDoctors()
+      .subscribe(
+        data => {
+          this.doctors = data as Doctor[];
+        }
+      );
   }
 
   search() {
-    const formData = new FormData();
-
     if (!this.filteredSpec && !this.filteredDateFrom && !this.filteredDateTo) {
       this.apiService.getUnoccupiedVisits()
-        .subscribe((res: any[]) => {
-        this.visits = res;
-      });
-    } else {
-      formData.set('spec', this.filteredSpec);
-      formData.append('dateFrom', this.filteredDateTo);
-      formData.append('dateTo', this.filteredDateTo);
-
-      this.apiService.getUnoccupiedVisitsFiltered(this.filteredSpec, this.filteredDateFrom, this.filteredDateTo)
         .subscribe(
-        data => this.visits = data,
+          data => {
+            this.visits = data as Visit[];
+            this.isTableVisible = true;
+          },
+          error => {
+            this.setMessageNoVisit();
+          }
+        );
+    } else {
+
+      let dateFilter: DateFilter;
+      dateFilter = {
+        dateFrom: this.filteredDateFrom,
+        dateTo: this.filteredDateTo
+      };
+
+      this.apiService.getUnoccupiedVisitsFiltered(dateFilter)
+        .subscribe(
+        data => {
+          this.visits = data as Visit[];
+          this.isTableVisible = true;
+        },
         error => {
-        });
-
+          this.setMessageNoVisit();
+          }
+        );
+      setTimeout(() => this.getDoctors(), 1000);
     }
-    this.isTableVisible = true;
   }
 
-  setClickedRow(index) {
-    this.selectedRow = index;
-    this.launchBooking(this.selectedRow);
+  getDoctors() {
+    let doctor: Doctor;
+    doctor = {
+      id: null,
+      name: null,
+      spec: this.filteredSpec,
+      surname: null
+    };
+    this.apiService.getDoctorsFiltered(doctor)
+      .subscribe(
+        data => {
+          this.visits = data as Visit[];
+          this.isTableVisible = true;
+        },
+        error => {
+          this.setMessageNoVisit();
+        }
+      );
   }
 
-  launchBooking(idView) {
-    this.messageToBookingComponent = this.visits[idView].id;
-    // odczytaj tabelaZTerminami[i-1] i przekaż
-    // let id;
-    // id = this.visits.valueOf(idView);
-    this.router.navigateByUrl('/bookTheVisit');
+  setMessageNoVisit() {
+    this.messageNoVisit = 'There is no unoccupied visit.';
   }
 
-
-  // 1. złożyć obiekt w param do get'a  ok
-  // 2. odbiór w visity[]               ok
-  // 3.wyświetlenie na w tablicy        ok
-  // 4. przekazać dalej w params
+  launchBooking(index) {
+    this.selectedRow = this.visits[index].id;
+    this.apiService.changeMessage(this.selectedRow);
+    this.router.navigate(['/confirm']);
+  }
 }

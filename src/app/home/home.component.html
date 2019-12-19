@@ -21,7 +21,8 @@
   <div class="form-inline" style="padding-top: 15px; padding-bottom: 20px">
     <button (click)="search()" class="btn btn-outline-secondary">Search</button>
   </div>
-</form>
+</form><br>
+
 <table *ngIf="isTableVisible" class="table table-dark table-hover">
   <thead>
     <tr>
@@ -33,16 +34,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let visit of visits; let i = index" (click)="setClickedRow(i)" >
-      <td>{{i+1}}</td>
-      <td>{{visit.doctor.spec}}</td>
-      <td>{{visit.doctor.name + visit.doctor.surname}}</td>
+    <tr *ngFor="let visit of visits; let i = index" (click)="launchBooking(i)" >
+      <td>{{visits.indexOf(visit) + 1}}</td>
+      <td>{{(doctors[visit.doctor - 1]).spec}}</td>
+      <td>{{(doctors[visit.doctor - 1]).surname + ' ' + doctors[visit.doctor - 1].name}}</td>
       <td>{{visit.date}}</td>
       <td>{{visit.time}}</td>
     </tr>
   </tbody>
 </table>
-
 <div class="well well-lg">
-  Selected Row : <strong>{{selectedRow}}</strong>
+  {{messageNoVisit}}
 </div>

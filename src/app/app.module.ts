@@ -12,12 +12,14 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { EditDataComponent } from './edit-data/edit-data.component';
 import { BookedVisitsComponent } from './booked-visits/booked-visits.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import {AuthService, AuthServiceConfig, GoogleLoginProvider} from 'angular5-social-login';
 import { BookTheVisitComponent } from './book-the-visit/book-the-visit.component';
 import {TokenStorage} from './core/token-storage';
 import {AuthenticationService} from './core/authentication-service';
+import {Interceptor} from './core/Interceptor';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 export function socialConfigs() {
   const config = new AuthServiceConfig(
@@ -53,8 +55,8 @@ const appRoutes: Routes = [
     component: BookedVisitsComponent
   },
   {
-    path: 'bookTheVisit',
-    component: BookTheVisitComponent
+    path: 'confirm',
+    component: ConfirmComponent
   },
   {
     path: '',
@@ -77,7 +79,7 @@ const appRoutes: Routes = [
     HomeComponent,
     EditDataComponent,
     BookedVisitsComponent,
-    BookTheVisitComponent
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +94,9 @@ const appRoutes: Routes = [
     AuthService,
     AuthenticationService,
     TokenStorage,
+    {provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi : true},
     {
       provide: AuthServiceConfig,
       useFactory: socialConfigs

@@ -3,13 +3,12 @@ import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common
 import {environment} from '../../environments/environment';
 import 'rxjs-compat/add/operator/map';
 import {Visit} from '../models/visit.model';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import 'rxjs-compat/add/operator/catch';
-import {any} from 'codelyzer/util/function';
 import {User} from '../models/user.model';
-import {TokenStorage} from '../core/token-storage';
+import {Doctor} from '../models/doctor.model';
+import {DateFilter} from '../models/date-filter.model';
 
 // interface VisitResponse {
 //   visits: Array<Visit>;
@@ -20,108 +19,49 @@ import {TokenStorage} from '../core/token-storage';
 })
 export class ApiService {
 
-  token: string;
-
-  header = new HttpHeaders({
-    Authorization: this.token,
-  });
+  private messageSource = new BehaviorSubject<number>(-1);
+  currentMessage = this.messageSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  // static handleError(error) {
-  //   let errorMessage: any;
-  //   if (error.error instanceof ErrorEvent) {
-  //     // client-side error
-  //     errorMessage = `${error.error.message.status}`;
-  //   } else {
-  //     // server-side error
-  //     errorMessage = `${error.status}`;
-  //   }
-  //   return errorMessage;
-  // }
-
-  // login(loginPayload) {
-  //
-  //   return this.http.post(environment.baseUrl + '/login', loginPayload, { observe: 'response' })
-  //     // .map(res => res.status)
-  //     .map((data: any) => {
-  //       this.token = data.headers.get('Authorization');
-  //       console.log(this.token);
-  //       return data.status;
-  //     })
-  //     .catch(ApiService.handleError);
-  // }
-  //
-  // register(data) {
-  //   return this.http.post(environment.baseUrl + '/register', data, { observe: 'response' })
-  //     .map(res => res.status)
-  //     .catch(ApiService.handleError);
-  // }
-  //
-  // logout() {
-  //   return this.http.post(environment.baseUrl + '/logout', { headers: this.header, observe: 'response' })
-  //     .map(res => any)
-  //     .catch(ApiService.handleError);
-  // }
-  // getUnoccupiedVisitsFiltered(formData) {
-  //   return this.http.get<Visit[]>(environment.baseUrl + '/showVisits', formData);
-  // }
-
-  // ***działa
-  // editData(data): Observable<any> {
-  //   return this.http.post<any>(environment.ApiUrl + '/editData/' + data, { headers: this.header })
-  //     .map(res => res.json())
-  //     .catch(ApiService.handleError);
-  // }
-  //
-  // getUnoccupiedVisits() {
-  //   return this.http.get<Visit[]>(environment.ApiUrl + '/showVisits', { headers: this.header });
-  // }
-  //
-  // getUnoccupiedVisitsFiltered(spec, dateFrom, dateTo) {
-  //   const param = new HttpParams().set('spec', spec).set('dateFrom', dateFrom).set('dateTo', dateTo);
-  //   return this.http.get<Visit[]>(environment.ApiUrl + '/showVisits', { headers: this.header, params: param});
-  // }
-  //
-  // bookTheVisit(id) {
-  //   const param = new HttpParams().set('idVisit', id);
-  //   return this.http.post(environment.ApiUrl + '/showVisits', { headers: this.header, params: param});
-  // }
-  //
-  // getMyVisits() {
-  //   return this.http.get<Visit[]>(environment.ApiUrl + '/showVisits', { headers: this.header });
-  // }
-
-  /******* test ******/
-  // abc() {
-  //   return this.http.get(environment.baseUrl + '/api/abc', { headers: this.header, observe: 'response'})
-  //     .map(res => res.status)
-  //     .catch(ApiService.handleError);
-  // }
+  changeMessage(message: number) {
+    this.messageSource.next(message);
+  }
 
   editData(user: User): Observable<User> {
     return this.http.post<User>(environment.ApiUrl + '/editData', user);
   }
   getUnoccupiedVisits(): Observable<Visit[]> {
-    return this.http.get<Visit[]>(environment.ApiUrl + '/showVisits');
+    return this.http.get<Visit[]>(environment.ApiUrl + '/getVisits');
   }
 
-
-  // getUnoccupiedVisitsFiltered(formData) {
-  //   return this.http.get<Visit[]>(environment.baseUrl + '/showVisits', formData);
-  // }
-
-  getUnoccupiedVisitsFiltered(spec: string, dateFrom: any, dateTo: any): Observable<Visit[]> {
+  getUnoccupiedVisitsFiltered(dateFilter: DateFilter): Observable<Visit[]> {
     // const param = new HttpParams().set('spec', spec).set('dateFrom', dateFrom).set('dateTo', dateTo);
-    return this.http.get<Visit[]>(environment.ApiUrl + '/showVisits/' + spec + '/' + dateFrom + '/' + dateTo);
-  }
-
-  bookTheVisit(id): Observable<any> {
-    return this.http.post(environment.ApiUrl + '/addVisit/' + id, null);
+    return this.http.post<Visit[]>(environment.ApiUrl + '/getVisitsFiltered/', dateFilter);
   }
 
   getMyVisits(): Observable<Visit[]> {
-    return this.http.get<Visit[]>(environment.ApiUrl + '/showMyVisits');
+    return this.http.get<Visit[]>(environment.ApiUrl + '/getMyVisits');
+  }
+
+  getVisitById(id: number): Observable<Visit> {
+    return this.http.get<Visit>(environment.ApiUrl + '/getVisit/' + id);
+  }
+
+  getDoctors(): Observable<Doctor[]> {
+    return this.http.get<Doctor[]>(environment.ApiUrl + '/getDoctors');
+  }
+
+  getDoctorById(id: number): Observable<Doctor> {
+    return this.http.get<Doctor>(environment.ApiUrl + '/getDoctorById/' + id);
+  }
+
+  getDoctorsFiltered(doctor: Doctor): Observable<Doctor[]> {
+    return this.http.post<Doctor[]>(environment.ApiUrl + '/getDoctorsFiltered', doctor);
+  }
+
+  bookTheVisit(id): Observable<any> {
+    return this.http.post<any>(environment.ApiUrl + '/addVisit/' + id, null);
   }
 
   abc(): Observable<any> {
