@@ -1,26 +1,29 @@
 <app-navigattion></app-navigattion>
 <html>
   <body *ngIf="isVisibleBody">
-    <h1>Would you like to book this visit ?</h1><br>
+    <h1>Czy chcesz zarezerwować wybraną wizytę ?</h1><br>
     <div class="form-group">
       <label>
-        <b>Date: </b>{{visit.date}}
+        <b>Data: </b>{{visit.date}}
       </label><br>
       <label>
-        <b>Time: </b>{{visit.time}}
+        <b>Czas: </b>{{visit.time}}
       </label><br>
       <label>
-        <b>Doctor's spec: </b>{{doctor.spec}}
+        <b>Specjalność lekarza: </b>{{doctor.spec}}
       </label><br>
       <label>
-        <b>Date: </b>{{doctor.surname + ' ' + doctor.name}}
+        <b>Data: </b>{{doctor.surname + ' ' + doctor.name}}
       </label><br>
   </div>
   <div class="form-group">
     <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
-      <button class="btn btn-outline-success" (click)="confirmBooking() "style="margin-right: 12px;">Confirm</button>
-      <button class="btn btn-outline-danger" routerLink="/home">Cancel</button>
+      <button class="btn btn-outline-success" (click)="confirmBooking() "style="margin-right: 12px;">Potwierdź</button>
+      <button class="btn btn-outline-danger" routerLink="/home">Anuluj</button>
     </div>
+  </div><br>
+  <div *ngIf="isSaving">
+    Zapisywanie ...
   </div>
   </body>
 </html>

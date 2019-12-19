@@ -8,17 +8,17 @@
   <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
     <div class="card">
       <div class="card-header">
-        <i class="fa fa-user"></i> Log in to the {{title}}
+        <i class="fa fa-user"></i> Zaloguj do {{title}}
       </div>
       <div class="card-block" style="padding: 24px;">
         <form #f="ngForm" >
             <!-- Spring Security error display -->
             <div *ngIf="showError" class="alert alert-danger">
-              Log in error. Check credentials.
+              Błąd logowania. Sprawdź dane logowania.
             </div>
 
             <div *ngIf="showLogout" class="alert alert-info">
-              Log out success !
+              Wylogowano poprawnie !
             </div>
 
             <!-- Login Controls -->
@@ -33,7 +33,7 @@
             </div>
 
             <div class="form-group">
-              <label for="password">Password</label>
+              <label for="password">Hasło</label>
               <input type="password"
                      class="form-control"
                      id="password"
@@ -44,12 +44,12 @@
 
             <!-- Login Button  -->
             <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
-              <button type="submit" (click)="login()" class="btn btn-outline-success" style="margin-right: 12px;">Log in</button>
-              <button class="btn btn-outline-primary" routerLink="/loginGoogle">Log in with Google account</button>
+              <button type="submit" (click)="login()" class="btn btn-outline-success" style="margin-right: 12px;">Zaloguj</button>
+              <button class="btn btn-outline-primary" routerLink="/loginGoogle">Zaloguj za pomocą konta Google</button>
             </div>
 
             <div>
-              Don't have an account ? <a routerLink="/register">Register now</a>
+              Nie masz jeszcze konta ? <a routerLink="/register">Zarejestruj się</a>
             </div>
         </form>
       </div>

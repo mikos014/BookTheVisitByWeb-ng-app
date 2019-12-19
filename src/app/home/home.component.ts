@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
+    this.messageNoVisit = '';
     if (!this.filteredSpec && !this.filteredDateFrom && !this.filteredDateTo) {
       this.apiService.getUnoccupiedVisits()
         .subscribe(
@@ -53,7 +54,8 @@ export class HomeComponent implements OnInit {
       let dateFilter: DateFilter;
       dateFilter = {
         dateFrom: this.filteredDateFrom,
-        dateTo: this.filteredDateTo
+        dateTo: this.filteredDateTo,
+        spec: this.filteredSpec
       };
 
       this.apiService.getUnoccupiedVisitsFiltered(dateFilter)
@@ -81,13 +83,23 @@ export class HomeComponent implements OnInit {
     this.apiService.getDoctorsFiltered(doctor)
       .subscribe(
         data => {
-          this.visits = data as Visit[];
+          this.doctors = data as Doctor[];
           this.isTableVisible = true;
         },
         error => {
           this.setMessageNoVisit();
         }
       );
+
+    // setTimeout(() => this.getDoctors(), 2000);
+    // this.doctors.forEach(data => this.filterOfVisits.push(data.id));
+    //
+    // this.visits = this.visits.filter(data => this.filterOfVisits.indexOf(data.doctor) === -1);
+    // for (let i = 0; i < this.visits.length; i++) {
+    //   if (this.filterOfVisits.indexOf(this.visits[i].doctor) === -1) {
+    //     this.visits;
+    //   }
+    // }
   }
 
   setMessageNoVisit() {

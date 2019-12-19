@@ -3,7 +3,6 @@ import {Visit} from '../models/visit.model';
 import {Doctor} from '../models/doctor.model';
 import {ApiService} from '../services/api.service';
 import {Router} from '@angular/router';
-import {async} from 'rxjs/internal/scheduler/async';
 
 @Component({
   selector: 'app-confirm',
@@ -17,6 +16,7 @@ export class ConfirmComponent implements OnInit {
   doctorId: number;
   doctor: Doctor;
   isVisibleBody = false;
+  isSaving = false;
 
   constructor(private apiService: ApiService, private router: Router) { }
 
@@ -52,9 +52,17 @@ export class ConfirmComponent implements OnInit {
   confirmBooking() {
     this.apiService.bookTheVisit(this.currentId)
       .subscribe(
+        data => this.isSaving = true,
+        error => {
+      });
+    setTimeout(() => 2000);
+
+    this.apiService.sendMail(this.currentId)
+      .subscribe(
         data => this.router.navigateByUrl('/home'),
         error => {
-        });
+        }
+      );
   }
 
 }

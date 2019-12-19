@@ -60,8 +60,12 @@ export class ApiService {
     return this.http.post<Doctor[]>(environment.ApiUrl + '/getDoctorsFiltered', doctor);
   }
 
-  bookTheVisit(id): Observable<any> {
+  bookTheVisit(id: number): Observable<any> {
     return this.http.post<any>(environment.ApiUrl + '/addVisit/' + id, null);
+  }
+
+  sendMail(id: number): Observable<any> {
+    return this.http.post<any>(environment.ApiUrl + '/sendMail/' + id, null);
   }
 
   abc(): Observable<any> {

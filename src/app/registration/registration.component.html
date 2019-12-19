@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Registration</title>
+  <title>Rejestracja</title>
 </head>
 <body>
 <div class="container">
   <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
     <div class="card">
       <div class="card-header">
-        <i class="fa fa-user"></i> Create new account
+        <i class="fa fa-user"></i> Utwórz konto
       </div>
       <div class="card-block" style="padding: 24px;">
         <form >
           <!-- Spring Security error display -->
           <div *ngIf="showEmailError" class="alert alert-danger">
-          The e-mail exists. Set unique one.
+          E-mail jest zajęty. Wpisz inny.
           </div>
 
           <div *ngIf="showEmptyInputError" class="alert alert-danger">
-            Each input have to be filled.
+            Wszystkie pola są obowiązkowe.
           </div>
 
           <div *ngIf="showPasswordError" class="alert alert-danger">
-            Passwords are not the same.
+            Hasła są rózne.
           </div>
 
           <div *ngIf="showLenPasswordError" class="alert alert-danger">
-            Passwords too short.
+            Hasło musi mieć więcej niż 3 znaki.
           </div>
 
           <!-- Register Controls -->
@@ -41,7 +41,7 @@
           </div>
 
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Imię</label>
             <input type="text"
                    class="form-control"
                    id="name"
@@ -51,7 +51,7 @@
           </div>
 
           <div class="form-group">
-            <label for="surname">Surname</label>
+            <label for="surname">Nazwisko</label>
             <input type="text"
                    class="form-control"
                    id="surname"
@@ -61,7 +61,7 @@
           </div>
 
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Hasło</label>
             <input type="password"
                    class="form-control"
                    id="password"
@@ -71,7 +71,7 @@
           </div>
 
           <div class="form-group">
-            <label for="password2">Confirm password</label>
+            <label for="password2">Potwierdź hasło</label>
             <input type="password"
                    class="form-control"
                    id="password2"
@@ -82,8 +82,8 @@
 
           <!-- Register Button -->
           <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
-            <button (click)="register()" class="btn btn-outline-success" style="margin-right: 12px;">Register</button>
-            <button class="btn btn-outline-danger" routerLink="/login">Cancel</button>
+            <button (click)="register()" class="btn btn-outline-success" style="margin-right: 12px;">Zarejestruj</button>
+            <button class="btn btn-outline-danger" routerLink="/login">Anuluj</button>
           </div>
 
         </form>

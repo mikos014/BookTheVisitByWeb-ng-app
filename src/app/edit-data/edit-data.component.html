@@ -1,14 +1,14 @@
 <app-navigattion></app-navigattion>
-<h2>You can change both or one of the credentials.</h2>
+<h2>Możesz zmienić login i hasło lub jedno z nich.</h2>
 <br>
 <form #f="ngForm" >
   <!-- Spring Security error display -->
   <div *ngIf="showEmailError" class="alert alert-danger">
-    The e-mail exists. Set unique one.
+    E-mail już istnieje. Wpisz unikalny.
   </div>
 
   <div *ngIf="showPasswordError" class="alert alert-danger">
-    Passwords are not the same.
+    Hasło są różne.
   </div>
 
   <!-- Register Controls -->
@@ -23,7 +23,7 @@
   </div>
 
   <div class="form-group">
-    <label for="password">Password</label>
+    <label for="password">Hasło</label>
     <input type="password"
            class="form-control"
            id="password"
@@ -33,7 +33,7 @@
   </div>
 
   <div class="form-group">
-    <label for="password2">Confirm password</label>
+    <label for="password2">Potwierdź hasło</label>
     <input type="password"
            class="form-control"
            id="password2"
@@ -42,7 +42,7 @@
            [(ngModel)]="password2">
   </div>
   <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
-    <button type="submit" (click)="confirm()" class="btn btn-outline-success" style="margin-right: 12px;">Confirm</button>
-    <button class="btn btn-outline-danger" routerLink="/home">Cancel</button>
+    <button type="submit" (click)="confirm()" class="btn btn-outline-success" style="margin-right: 12px;">Potwierdź</button>
+    <button class="btn btn-outline-danger" routerLink="/home">Anuluj</button>
   </div>
 </form>
