@@ -15,7 +15,6 @@ import { BookedVisitsComponent } from './booked-visits/booked-visits.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import {AuthService, AuthServiceConfig, GoogleLoginProvider} from 'angular5-social-login';
-import { BookTheVisitComponent } from './book-the-visit/book-the-visit.component';
 import {TokenStorage} from './core/token-storage';
 import {AuthenticationService} from './core/authentication-service';
 import {Interceptor} from './core/Interceptor';
@@ -24,10 +23,14 @@ import { ConfirmComponent } from './confirm/confirm.component';
 export function socialConfigs() {
   const config = new AuthServiceConfig(
 [
-      {
-        id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider('app-id')
-      }
+      // {
+      //   id: GoogleLoginProvider.PROVIDER_ID,
+      //   provider: new GoogleLoginProvider('app-id')
+      // }
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('81799120248-ocm1gn7uehog3s7m6g8bhjvoq62n1j24.apps.googleusercontent.com')
+          }
     ]
   );
   return config;

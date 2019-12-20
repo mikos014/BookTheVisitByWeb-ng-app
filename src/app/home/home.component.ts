@@ -50,7 +50,6 @@ export class HomeComponent implements OnInit {
           }
         );
     } else {
-
       let dateFilter: DateFilter;
       dateFilter = {
         dateFrom: this.filteredDateFrom,
