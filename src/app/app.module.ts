@@ -19,6 +19,8 @@ import {TokenStorage} from './core/token-storage';
 import {AuthenticationService} from './core/authentication-service';
 import {Interceptor} from './core/Interceptor';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { AddDoctorsComponent } from './add-doctors/add-doctors.component';
+import { AddVisitsComponent } from './add-visits/add-visits.component';
 
 export function socialConfigs() {
   const config = new AuthServiceConfig(
@@ -62,6 +64,14 @@ const appRoutes: Routes = [
     component: ConfirmComponent
   },
   {
+    path: 'addDoctors',
+    component: AddDoctorsComponent
+  },
+  {
+    path: 'addVisits',
+    component: AddVisitsComponent
+  },
+  {
     path: '',
     component: LoginComponent,
     pathMatch: 'full'
@@ -82,7 +92,9 @@ const appRoutes: Routes = [
     HomeComponent,
     EditDataComponent,
     BookedVisitsComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    AddDoctorsComponent,
+    AddVisitsComponent
   ],
   imports: [
     BrowserModule,

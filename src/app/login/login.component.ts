@@ -42,8 +42,10 @@ export class LoginComponent implements OnInit {
     this.authentService.login(this.username, this.password)
       .subscribe(
         data => {
-          console.log(data);
+          console.log(data.toString());
           this.token.saveToken(data);
+          this.token.saveToken(data.substring(data.indexOf('-') + 1, data.length));
+          this.token.saveRole(data.substring(0, data.indexOf('-')));
           this.token.reloadPage();
         },
         error => {

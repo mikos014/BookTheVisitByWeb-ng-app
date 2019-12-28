@@ -9,9 +9,11 @@ import {TokenStorage} from '../core/token-storage';
 })
 export class NavigationComponent implements OnInit {
 
+  isAdmin = false;
   constructor(private router: Router, private token: TokenStorage) { }
 
   ngOnInit() {
+    this.isAdmin = this.token.isAdmin();
   }
 
   logout(): void {

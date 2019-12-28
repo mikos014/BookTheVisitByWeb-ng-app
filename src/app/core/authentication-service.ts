@@ -16,7 +16,9 @@ export class AuthenticationService {
     const options = {responseType: 'text' as 'json'};
     // console.log('Trying to authenticate.');
     return this.http.post<any>(environment.baseUrl + '/login', credentials, { observe: 'response' }).pipe(
-      map(data => data.headers.get('Authorization')),
+      map(
+        data => data.headers.get('Role') + '-' + data.headers.get('Authorization'),
+      ),
       catchError((err: HttpErrorResponse) => {
         return throwError(err.error.message);
       })

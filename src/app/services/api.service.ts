@@ -68,7 +68,12 @@ export class ApiService {
     return this.http.post<any>(environment.ApiUrl + '/sendMail/' + id, null);
   }
 
-  abc(): Observable<any> {
-    return this.http.get<any>(environment.ApiUrl + '/abc');
+  addDoctor(doctor: Doctor): Observable<any> {
+    return this.http.post<any>(environment.ApiUrl + '', doctor);ad
   }
+
+  addVisit(visit: Visit): Observable<any> {
+    return this.http.post<any>(environment.ApiUrl + '', visit);asd
+  }
+
 }

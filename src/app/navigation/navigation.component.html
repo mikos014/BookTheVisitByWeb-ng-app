@@ -12,13 +12,19 @@
       <li>
         <a class="nav-link" routerLinkActive="active" routerLink="/home">Wyszukaj  </a>
       </li>
+      <li>
+        <a class="nav-link" routerLinkActive="active" *ngIf="isAdmin" routerLink="/addDoctors">Dodaj lekarza</a>
+      </li>
+      <li>
+        <a class="nav-link" routerLinkActive="active" *ngIf="isAdmin" routerLink="/addVisits">Dodaj wizytę</a>
+      </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <li>
         <a class="nav-link" routerLinkActive="active" routerLink="/editData">Edytuj profil  </a>
       </li>
       <li>
-        <a class="nav-link" routerLinkActive="active" routerLink="/myVisits">Moje wizyty  </a>
+        <a class="nav-link" routerLinkActive="active" *ngIf="!isAdmin" routerLink="/myVisits">Moje wizyty  </a>
       </li>
       <li>
         <a class="nav-link" routerLinkActive="active" (click)="logout()">Wyloguj</a>
