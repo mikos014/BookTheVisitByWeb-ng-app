@@ -3,4 +3,5 @@ export class Visit {
   date: any;
   time: string;
   doctor: number;
+  user: number;
 }

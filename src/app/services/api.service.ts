@@ -69,11 +69,22 @@ export class ApiService {
   }
 
   addDoctor(doctor: Doctor): Observable<any> {
-    return this.http.post<any>(environment.ApiUrl + '', doctor);ad
+    return this.http.post<any>(environment.ApiUrl + '/setNewDoctor', doctor);
   }
 
   addVisit(visit: Visit): Observable<any> {
-    return this.http.post<any>(environment.ApiUrl + '', visit);asd
+    return this.http.post<any>(environment.ApiUrl + '/setNewVisit', visit);
   }
 
+  getAllVisits(): Observable<Visit[]> {
+    return this.http.get<Visit[]>(environment.ApiUrl + '/getAllVisits');
+  }
+
+  getAllDoctors(): Observable<Doctor[]> {
+    return this.http.get<Doctor[]>(environment.ApiUrl + '/getDoctors');
+  }
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(environment.ApiUrl + '/getAllUsers');
+  }
 }

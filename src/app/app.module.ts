@@ -21,6 +21,8 @@ import {Interceptor} from './core/Interceptor';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { AddDoctorsComponent } from './add-doctors/add-doctors.component';
 import { AddVisitsComponent } from './add-visits/add-visits.component';
+import { AllVisitsComponent } from './all-visits/all-visits.component';
+import { AllDoctorsComponent } from './all-doctors/all-doctors.component';
 
 export function socialConfigs() {
   const config = new AuthServiceConfig(
@@ -60,6 +62,14 @@ const appRoutes: Routes = [
     component: BookedVisitsComponent
   },
   {
+    path: 'allVisits',
+    component: AllVisitsComponent
+  },
+  {
+    path: 'allDoctors',
+    component: AllDoctorsComponent
+  },
+  {
     path: 'confirm',
     component: ConfirmComponent
   },
@@ -94,7 +104,9 @@ const appRoutes: Routes = [
     BookedVisitsComponent,
     ConfirmComponent,
     AddDoctorsComponent,
-    AddVisitsComponent
+    AddVisitsComponent,
+    AllVisitsComponent,
+    AllDoctorsComponent
   ],
   imports: [
     BrowserModule,

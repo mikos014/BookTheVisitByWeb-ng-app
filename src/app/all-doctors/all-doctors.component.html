@@ -1,0 +1,20 @@
+<app-navigattion></app-navigattion>
+<h1>Wszyscy lekarza: </h1><br>
+<table *ngIf="isTableVisible" class="table table-dark">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>id</th>
+    <th>Specjalista</th>
+    <th>Lekarz</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let doctor of doctors;">
+    <td>{{doctors.indexOf(doctor) + 1}}</td>
+    <td>{{doctor.id}}</td>
+    <td>{{doctor.spec}}</td>
+    <td>{{doctor.name + ' ' + doctor.surname}}</td>
+  </tr>
+  </tbody>
+</table>

@@ -1,1 +1,45 @@
-<p>add-doctors works!</p>
+<app-navigattion></app-navigattion>
+<h2>Dodaj lekarza</h2>
+<br>
+<form #f="ngForm" >
+  <!-- Spring Security error display -->
+  <div *ngIf="showDoctorExistsError" class="alert alert-danger">
+    Lekarz już istnieje.
+  </div>
+
+  <!-- Controls -->
+  <div class="form-group">
+    <label for="name">Imię</label>
+    <input type="text"
+           class="form-control"
+           id="name"
+           name="name"
+           placeholder="Adam"
+           [(ngModel)]="name">
+  </div>
+
+  <div class="form-group">
+    <label for="spec">Specjalność</label>
+    <input type="text"
+           class="form-control"
+           id="spec"
+           name="spec"
+           placeholder="Larynglog"
+           [(ngModel)]="spec">
+  </div>
+
+  <div class="form-group">
+    <label for="surname">Nazwisko</label>
+    <input type="text"
+           class="form-control"
+           id="surname"
+           name="surname"
+           placeholder="Kowalski"
+           [(ngModel)]="surname">
+  </div>
+
+  <div class="form-actions" style="margin-top: 12px;margin-bottom: 24px;">
+    <button type="submit" (click)="confirm()" class="btn btn-outline-success" style="margin-right: 12px;">Potwierdź</button>
+    <button class="btn btn-outline-danger" routerLink="/home">Anuluj</button>
+  </div>
+</form>

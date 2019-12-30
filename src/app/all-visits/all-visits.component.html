@@ -1,0 +1,24 @@
+<app-navigattion></app-navigattion>
+<h1>Wszystkie wizyty: </h1><br>
+<table *ngIf="isTableVisible" class="table table-dark">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Specjalista</th>
+    <th>Lekarz</th>
+    <th>Pacjent</th>
+    <th>Data</th>
+    <th>Godzina</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let visit of visits;">
+    <td>{{visits.indexOf(visit) + 1}}</td>
+    <td>{{(doctors[visit.doctor- 1]).spec}}</td>
+    <td>{{(doctors[visit.doctor - 1]).surname + ' ' + doctors[visit.doctor - 1].name}}</td>
+    <td>{{visit.user == null ? '---' :(users[visit.user - 1]).email}}</td>
+    <td>{{visit.date}}</td>
+    <td>{{visit.time}}</td>
+  </tr>
+  </tbody>
+</table>

@@ -24,6 +24,12 @@
         <a class="nav-link" routerLinkActive="active" routerLink="/editData">Edytuj profil  </a>
       </li>
       <li>
+        <a class="nav-link" routerLinkActive="active" *ngIf="isAdmin" routerLink="/allDoctors">Lekarze  </a>
+      </li>
+      <li>
+        <a class="nav-link" routerLinkActive="active" *ngIf="isAdmin" routerLink="/allVisits">Wizyty  </a>
+      </li>
+      <li>
         <a class="nav-link" routerLinkActive="active" *ngIf="!isAdmin" routerLink="/myVisits">Moje wizyty  </a>
       </li>
       <li>
